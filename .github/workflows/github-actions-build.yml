@@ -50,4 +50,4 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/banking-config-server:latest
             ${{ secrets.DOCKER_USERNAME }}/banking-config-server:v${{ github.run_number }}
           cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-to: type=gha,mode=max 
