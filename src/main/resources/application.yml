@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: service-config
+  cloud:
+    config:
+      server:
+        bootstrap: true
+        git:
+          clone-on-start: false
+          default-label: main
+          uri: https://github.com/mqcdev/banking-config-repo.git
+          refreshRate: 360
+          searchPaths: config-data
+      health:
+        enabled: false
+server:
+  port: 8888

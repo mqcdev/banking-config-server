@@ -1,5 +1,11 @@
-FROM openjdk:11
-VOLUME /tmp
-EXPOSE 8888
-ADD ./target/ms-config-server-0.0.1-SNAPSHOT.jar ms-config-server.jar
-ENTRYPOINT ["java","-jar","/ms-config-server.jar"]
+FROM maven:3.9.0-eclipse-temurin-11-alpine AS builder
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+FROM eclipse-temurin:11-jre-alpine
+WORKDIR /app
+COPY --from=builder /app/target/*.jar app.jar
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
