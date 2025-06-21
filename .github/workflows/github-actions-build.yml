@@ -10,10 +10,13 @@ jobs:
   build-and-push:
     name: Container Build & Registry Push
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Java Development Kit
         uses: actions/setup-java@v4
@@ -48,6 +51,6 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/banking-config-server:latest
-            ${{ secrets.DOCKER_USERNAME }}/banking-config-server:v${{ github.sha }}
+            ${{ secrets.DOCKER_USERNAME }}/banking-config-server:v${{ github.run_number }}
           cache-from: type=gha
-          cache-to: type=gha,mode=max 
+          cache-to: type=gha,mode=max
